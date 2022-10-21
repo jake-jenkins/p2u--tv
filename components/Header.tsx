@@ -7,7 +7,7 @@ const Header = () => {
             <div className="container mx-auto flex h-14 items-center">
                 <Link href="/">
                 <div className="flex-none w-44 text-xl cursor-pointer">
-                    TV Maze Browser
+                    JJ TV
                 </div>
                 </Link>
                 <nav className="flex-initial w-full hidden md:block">

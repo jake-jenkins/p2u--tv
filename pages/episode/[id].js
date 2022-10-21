@@ -14,7 +14,7 @@ const Episode = ({show, episodes}) => {
       image = show.image.medium
   }
 
-  const pageTitle = show.name + " on " + show.network.name + " | P2U"
+  const pageTitle = show.name + " on " + show.network.name + " | JJ TV"
 
   return (
     <>

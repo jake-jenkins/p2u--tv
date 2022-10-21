@@ -33,7 +33,7 @@ export default function episodeCard({episode}) {
                 </>
                 )}
             </div>
-            <div className="flex-none w-2/3 p-2">
+            <div className="flex-none w-2/3 px-2">
                 <div dangerouslySetInnerHTML={{ __html: episode.summary}}></div>
             </div>
         </div>
