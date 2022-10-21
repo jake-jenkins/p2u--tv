@@ -19,6 +19,7 @@ export default function Card({show}) {
                 width={130}
                 height={160}
                 layout="fixed"
+                loading='lazy'
                 />
             </div>
             <div className="">
