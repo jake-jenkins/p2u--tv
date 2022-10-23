@@ -38,7 +38,7 @@ export default function Card({ show }) {
             ) : (
               <>
                 <div className="items-center text-white h-40 p-4">
-                  We don't have an image yet.
+                  We don&apos;t have an image yet.
                 </div>
               </>
             )}
