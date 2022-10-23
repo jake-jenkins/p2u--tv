@@ -25,11 +25,12 @@ export default function episodeCard({episode}) {
             height={180}
             className="rounded-xl"
             loading="lazy"
+            alt="episode image"
             />
                 </>) : (
                     <>
                     <div className="flex w-300 h-40 bg-indigo-800 text-white items-center justify-center rounded-xl">
-                        <p>We don't have an image yet.</p></div>
+                        <p>We don&apos;t have an image yet.</p></div>
                 </>
                 )}
             </div>

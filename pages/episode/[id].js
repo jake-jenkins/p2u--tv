@@ -25,7 +25,7 @@ const Episode = ({show, episodes}) => {
     <div className="flex gap-5">
       <div className='flex-initial lg:w-2/3'>
         {episodes.map(episode => (
-          <EpisodeCard episode={episode} />
+          <EpisodeCard episode={episode} key={episode.id} />
         ))}
         </div>
   <div className='flex-1 w-1/3 hidden lg:block'>
@@ -36,6 +36,7 @@ const Episode = ({show, episodes}) => {
       width={320}
       layout="fixed"
       className='rounded-3xl'
+      alt="show image"
       />
   <div className="mt-4" dangerouslySetInnerHTML={{ __html: show.summary}}></div>
   </div>

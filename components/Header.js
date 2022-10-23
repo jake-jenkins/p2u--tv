@@ -11,9 +11,15 @@ const Header = () => {
                 </div>
                 </Link>
                 <nav className="flex-initial w-full hidden md:block">
-                    <a href="/" className="p-2">Home</a>
-                    <a href="#" className="p-2">Library</a>
-                    <a href="#" className="p-2">Your Account</a>
+                    <div className="p-2">
+                    <Link href="/">Home</Link>
+                    </div>
+                    <div className="p-2">
+                    <Link href="#">Library</Link>
+                    </div>
+                    <div className="p-2">
+                    <Link href="#">Your Account</Link>
+                    </div>
                 </nav>
                 <div className="flex-none w-50 justify-end text-right hidden md:block">
                         <form>
