@@ -1,7 +1,16 @@
-import Head from 'next/head'
-import Card from '../components/Card'
+import Head from "next/head";
+import Card from "../components/Card";
 
-export default function Home({days, today, day1, day2, day3, day4, day5, day6}) {
+export default function Home({
+  days,
+  today,
+  day1,
+  day2,
+  day3,
+  day4,
+  day5,
+  day6,
+}) {
   return (
     <>
       <Head>
@@ -10,107 +19,131 @@ export default function Home({days, today, day1, day2, day3, day4, day5, day6}) 
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className='text-4xl mb-4'>Today</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {today.map(show => (
+      <h1 className="text-4xl mb-4">Today</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {today.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[1]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day1.map(show => (
+      <h1 className="text-4xl mb-4">{days[1]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day1.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[2]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day2.map(show => (
+      <h1 className="text-4xl mb-4">{days[2]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day2.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[3]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day3.map(show => (
+      <h1 className="text-4xl mb-4">{days[3]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day3.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[4]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day4.map(show => (
+      <h1 className="text-4xl mb-4">{days[4]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day4.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[5]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day5.map(show => (
+      <h1 className="text-4xl mb-4">{days[5]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day5.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
 
-      <h1 className='text-4xl mb-4'>{days[6]}</h1>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14'>
-        {day6.map(show => (
+      <h1 className="text-4xl mb-4">{days[6]}</h1>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5 mb-14">
+        {day6.map((show) => (
           <Card key={show.id} show={show} />
         ))}
       </div>
-
     </>
-  )
+  );
 }
 
 export async function getServerSideProps() {
+  Date.prototype.addDays = function (days) {
+    let date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    let sDate = date.toLocaleDateString("en-US");
+    let shortDate =
+      sDate.slice(6, 10) + "-" + sDate.slice(0, 2) + "-" + sDate.slice(3, 5);
+    return shortDate;
+  };
 
-Date.prototype.addDays = function(days) {
-  let date = new Date(this.valueOf());
-  date.setDate(date.getDate() + days);
-  let sDate = date.toLocaleDateString('en-US')
-  let shortDate = sDate.slice(6,10) + "-" + sDate.slice(0, 2) + "-" + sDate.slice(3, 5)
-  return shortDate;
-}
+  let date = new Date();
 
-let date = new Date()
+  const week = {
+    today: date.addDays(0),
+    day1: date.addDays(1),
+    day2: date.addDays(2),
+    day3: date.addDays(3),
+    day4: date.addDays(4),
+    day5: date.addDays(5),
+    day6: date.addDays(6),
+  };
 
-const week = {
-  today: date.addDays(0),
-  day1: date.addDays(1),
-  day2: date.addDays(2),
-  day3: date.addDays(3),
-  day4: date.addDays(4),
-  day5: date.addDays(5),
-  day6: date.addDays(6)
-}
+  const tvToday = await fetch(`https://api.tvmaze.com/schedule?country=GB`);
+  const tvTodayShows = await tvToday.json();
 
-const tvToday = await fetch(`https://api.tvmaze.com/schedule?country=GB`)
-const tvTodayShows = await tvToday.json()
+  const tvDay1 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day1}&country=GB`
+  );
+  const tvDay1Shows = await tvDay1.json();
 
-const tvDay1 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day1}&country=GB`)
-const tvDay1Shows = await tvDay1.json()
+  const tvDay2 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day2}&country=GB`
+  );
+  const tvDay2Shows = await tvDay2.json();
 
-const tvDay2 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day2}&country=GB`)
-const tvDay2Shows = await tvDay2.json()
+  const tvDay3 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day3}&country=GB`
+  );
+  const tvDay3Shows = await tvDay3.json();
 
-const tvDay3 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day3}&country=GB`)
-const tvDay3Shows = await tvDay3.json()
+  const tvDay4 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day4}&country=GB`
+  );
+  const tvDay4Shows = await tvDay4.json();
 
-const tvDay4 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day4}&country=GB`)
-const tvDay4Shows = await tvDay4.json()
+  const tvDay5 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day5}&country=GB`
+  );
+  const tvDay5Shows = await tvDay5.json();
 
-const tvDay5 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day5}&country=GB`)
-const tvDay5Shows = await tvDay5.json()
+  const tvDay6 = await fetch(
+    `https://api.tvmaze.com/schedule?date=${week.day6}&country=GB`
+  );
+  const tvDay6Shows = await tvDay6.json();
 
-const tvDay6 = await fetch(`https://api.tvmaze.com/schedule?date=${week.day6}&country=GB`)
-const tvDay6Shows = await tvDay6.json()
-
-const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const days = [
-  "Today", weekdays[date.getDay() + 1], weekdays[date.getDay() + 2], weekdays[date.getDay() + 3], 
-  weekdays[date.getDay() + 4], weekdays[date.getDay() + 5], weekdays[date.getDay() + 6]
-]
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const days = [
+    "Today",
+    weekdays[date.getDay() + 1],
+    weekdays[date.getDay() + 2],
+    weekdays[date.getDay() + 3],
+    weekdays[date.getDay() + 4],
+    weekdays[date.getDay() + 5],
+    weekdays[date.getDay() + 6],
+  ];
 
   return {
     props: {
@@ -121,7 +154,7 @@ const days = [
       day3: tvDay3Shows,
       day4: tvDay4Shows,
       day5: tvDay5Shows,
-      day6: tvDay6Shows
-    }
-  }
+      day6: tvDay6Shows,
+    },
+  };
 }
