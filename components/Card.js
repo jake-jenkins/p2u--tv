@@ -28,7 +28,7 @@ export default function Card({ show }) {
                 <Image
                   src={image}
                   width={128}
-                  height={160}
+                  height={180}
                   layout="fixed"
                   loading="lazy"
                   alt="show image"
