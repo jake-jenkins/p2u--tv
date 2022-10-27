@@ -79,9 +79,13 @@ export async function getServerSideProps({ req, res }) {
   Date.prototype.addDays = function (days) {
     let date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
+    let day = "0" + date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
     let sDate = date.toLocaleDateString("en-US");
+
     let shortDate =
-      sDate.slice(6, 10) + "-" + sDate.slice(0, 2) + "-" + sDate.slice(3, 5);
+      year + "-" + month + "-" + day.slice(-2);
     return shortDate;
   };
 
@@ -96,6 +100,8 @@ export async function getServerSideProps({ req, res }) {
     day5: date.addDays(5),
     day6: date.addDays(6),
   };
+
+  console.log(week)
 
   const tvToday = await fetch(`https://api.tvmaze.com/schedule?country=GB`);
   const tvTodayShows = await tvToday.json();
@@ -131,6 +137,13 @@ export async function getServerSideProps({ req, res }) {
   const tvDay6Shows = await tvDay6.json();
 
   const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
     "Sunday",
     "Monday",
     "Tuesday",
