@@ -82,7 +82,6 @@ export async function getServerSideProps({ req, res }) {
     let day = "0" + date.getDate()
     let month = date.getMonth() + 1
     let year = date.getFullYear()
-    let sDate = date.toLocaleDateString("en-US");
 
     let shortDate =
       year + "-" + month + "-" + day.slice(-2);
@@ -100,8 +99,6 @@ export async function getServerSideProps({ req, res }) {
     day5: date.addDays(5),
     day6: date.addDays(6),
   };
-
-  console.log(week)
 
   const tvToday = await fetch(`https://api.tvmaze.com/schedule?country=GB`);
   const tvTodayShows = await tvToday.json();
