@@ -22,7 +22,7 @@ export default function Card({ show }) {
     <>
       <Link href={showLink}>
         <div className="bg-gray-50 shadow-lg p-4 rounded-xl flex cursor-pointer">
-          <div className="h-40 w-32 bg-slate-500 mr-5 rounded-lg shadow-lg">
+          <div className="h-42 w-32 bg-slate-500 mr-5 rounded-lg shadow-lg">
             {hasImage ? (
               <>
                 <Image
